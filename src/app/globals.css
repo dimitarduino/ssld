@@ -8,6 +8,7 @@
   --bg-card: rgba(17, 24, 39, 0.7);
   --bg-card-hover: rgba(26, 34, 53, 0.9);
   --bg-glass: rgba(17, 24, 39, 0.4);
+  --bg-navbar: rgba(10, 14, 26, 0.8);
 
   --border-primary: rgba(99, 102, 241, 0.15);
   --border-secondary: rgba(255, 255, 255, 0.06);
@@ -82,6 +83,7 @@
   --bg-card: rgba(255, 255, 255, 0.9);
   --bg-card-hover: rgba(255, 255, 255, 1);
   --bg-glass: rgba(255, 255, 255, 0.7);
+  --bg-navbar: rgba(255, 255, 255, 0.8);
 
   --border-primary: rgba(99, 102, 241, 0.2);
   --border-secondary: rgba(0, 0, 0, 0.08);
