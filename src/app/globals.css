@@ -579,7 +579,8 @@ a:hover {
   backdrop-filter: blur(20px);
   border: 1px solid var(--border-primary);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-header {
@@ -1138,6 +1139,47 @@ tr:hover td {
   .hero-actions {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .wizard-actions {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .wizard-actions .btn {
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+
+  .wizard-connector {
+    width: 20px;
+  }
+
+  .wizard-step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Utilities for Responsive */
+@media (max-width: 640px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hidden-mobile {
+    display: none !important;
   }
 }
 
