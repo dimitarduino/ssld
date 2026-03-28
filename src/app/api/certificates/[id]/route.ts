@@ -1,4 +1,5 @@
 import { getCertificateById, deleteCertificate } from '@/lib/storage';
+import { getSession } from '@/lib/auth';
 
 export async function GET(
   request: Request,
@@ -7,8 +8,13 @@ export async function GET(
   const { id } = await params;
 
   try {
+    const session = await getSession();
+    if (!session) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const cert = getCertificateById(id);
-    if (!cert) {
+    if (!cert || cert.userId !== session.id) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }
 
@@ -31,6 +37,16 @@ export async function DELETE(
   const { id } = await params;
 
   try {
+    const session = await getSession();
+    if (!session) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const cert = getCertificateById(id);
+    if (!cert || cert.userId !== session.id) {
+      return Response.json({ error: 'Certificate not found' }, { status: 404 });
+    }
+
     const deleted = deleteCertificate(id);
     if (!deleted) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });

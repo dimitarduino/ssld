@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllCertificates, getStats } from '@/lib/storage';
 import StatusBadge from '@/components/StatusBadge';
+import { getSession } from '@/lib/auth';
 import {
   HiOutlineShieldCheck,
   HiOutlineCheckBadge,
@@ -23,10 +24,12 @@ function formatDate(dateStr?: string) {
 
 export const dynamic = 'force-dynamic';
 
-export default function HomePage() {
-  const stats = getStats();
-  const certificates = getAllCertificates().slice(0, 5);
-  const hasCertificates = certificates.length > 0;
+export default async function HomePage() {
+  const session = await getSession();
+  const stats = session ? getStats(session.id) : { total: 0, active: 0, pending: 0, expiringSoon: 0, failed: 0 };
+  const certificates = session ? getAllCertificates(session.id).slice(0, 5) : [];
+  const hasCertificates = session && certificates.length > 0;
+  const isLoggedOut = !session;
 
   return (
     <div className="container">
@@ -46,13 +49,27 @@ export default function HomePage() {
             instant downloads.
           </p>
           <div className="hero-actions">
-            <Link href="/generate" className="btn btn-primary btn-lg">
-              <HiOutlineBolt />
-              Generate Certificate
-            </Link>
-            <Link href="/certificates" className="btn btn-secondary btn-lg">
-              View Certificates
-            </Link>
+            {isLoggedOut ? (
+              <>
+                <Link href="/register" className="btn btn-primary btn-lg">
+                  <HiOutlineBolt />
+                  Create Free Account
+                </Link>
+                <Link href="/login" className="btn btn-secondary btn-lg">
+                  Login to Dashboard
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/generate" className="btn btn-primary btn-lg">
+                  <HiOutlineBolt />
+                  Generate Certificate
+                </Link>
+                <Link href="/certificates" className="btn btn-secondary btn-lg">
+                  View Certificates
+                </Link>
+              </>
+            )}
           </div>
         </section>
       )}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "01e200a3-c505-498e-90ea-5334bb7931df",
+    "name": "Dimitar Kuzmanovski",
+    "email": "dimitarduino@gmail.com",
+    "password": "$2b$10$RRcaILktLQ0kIJanwWNb9.3ljiyPQAnVRqNTuKxlVba7J6MbvmE6K",
+    "createdAt": "2026-03-28T09:09:54.901Z"
+  },
+  {
+    "id": "71d75929-680e-4954-90f5-171ff4b19da5",
+    "name": "Dim Itar",
+    "email": "dimitarduino29@gmail.com",
+    "password": "$2b$10$9AUdr75CrM370A1F3OMYO.qP9nnf.K4.QJEIT9RXTcAb/jdQTFN5u",
+    "createdAt": "2026-03-28T09:10:25.616Z"
+  }
+]

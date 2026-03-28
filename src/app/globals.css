@@ -315,6 +315,50 @@ a:hover {
   color: var(--text-tertiary);
 }
 
+/* Modern Inputs with Icons for Auth Pages */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-tertiary);
+  font-size: 1.2rem;
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.input-with-icon .input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.input-with-icon .input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  background: var(--bg-card-hover);
+}
+
+.input-with-icon:focus-within .input-icon {
+  color: var(--accent-primary);
+}
+
+.input-with-icon .input::placeholder {
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
 .form-input-mono {
   font-family: var(--font-mono);
   font-size: 0.85rem;

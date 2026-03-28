@@ -51,6 +51,10 @@ export default function CertificateDetailPage() {
   const fetchCert = useCallback(async () => {
     try {
       const res = await fetch(`/api/certificates/${params.id}`);
+      if (res.status === 401) {
+        router.push('/login');
+        return;
+      }
       if (!res.ok) throw new Error('Certificate not found');
       const data = await res.json();
       setCert(data);
@@ -59,7 +63,7 @@ export default function CertificateDetailPage() {
     } finally {
       setLoading(false);
     }
-  }, [params.id]);
+  }, [params.id, router]);
 
   useEffect(() => {
     fetchCert();

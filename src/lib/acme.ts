@@ -30,6 +30,7 @@ export function splitCertChain(fullChain: string): { cert: string; bundle: strin
 }
 
 export async function initiateOrder(
+  userId: string,
   domains: string[],
   email: string,
   challengeType: ChallengeType,
@@ -133,6 +134,7 @@ export async function initiateOrder(
 
   const record: CertificateRecord = {
     id,
+    userId,
     domains,
     email,
     status: 'pending',

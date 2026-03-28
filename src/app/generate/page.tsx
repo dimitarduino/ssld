@@ -41,13 +41,19 @@ export default function GeneratePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Load saved email on mount
+  // Check auth on mount and prefill email
   useEffect(() => {
-    const savedEmail = localStorage.getItem('cert_email');
-    if (savedEmail) {
-      setEmail(savedEmail);
-    }
-  }, []);
+    fetch('/api/auth/me')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.user) {
+          router.push('/login');
+        } else {
+          setEmail(data.user.email);
+        }
+      })
+      .catch(() => router.push('/login'));
+  }, [router]);
 
   const addDomain = () => setDomains([...domains, '']);
   const removeDomain = (index: number) => {

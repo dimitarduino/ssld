@@ -5,6 +5,7 @@ export type ServerType = 'apache' | 'nginx' | 'other';
 
 export interface CertificateRecord {
   id: string;
+  userId: string;
   domains: string[];
   email: string;
   status: CertificateStatus;
@@ -82,3 +83,21 @@ export const SERVER_DOWNLOAD_FILES: Record<ServerType, DownloadFileInfo[]> = {
     { label: 'Private Key', filename: 'private.key', description: '.key — Private key', queryParam: 'key' },
   ],
 };
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  createdAt: string;
+}
+
+export interface AuthResponse {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+  };
+  token?: string;
+}
+
