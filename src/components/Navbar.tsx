@@ -29,7 +29,7 @@ export default function Navbar() {
           <div className={styles.logoIcon}>
             <HiOutlineShieldCheck />
           </div>
-          <span className={styles.logoText}>CertForge</span>
+          <span className={styles.logoText}>SSLD</span>
         </Link>
 
         <div className={styles.navLinks}>

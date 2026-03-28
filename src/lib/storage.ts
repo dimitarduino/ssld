@@ -2,7 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { CertificateRecord } from './types';
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
+const DATA_DIR = isVercel 
+  ? path.join('/tmp', 'ssld-data') 
+  : path.join(process.cwd(), 'data');
 const CERTS_FILE = path.join(DATA_DIR, 'certificates.json');
 const KEYS_DIR = path.join(DATA_DIR, 'keys');
 

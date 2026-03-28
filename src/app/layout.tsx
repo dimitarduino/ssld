@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "CertForge — Free SSL Certificate Generator",
+  title: "SSLD — Free SSL Certificate Generator",
   description:
     "Generate free SSL/TLS certificates for your domains using Let's Encrypt. Supports HTTP-01 and DNS-01 challenges, wildcard certificates, and more.",
 };
