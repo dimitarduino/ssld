@@ -9,14 +9,21 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "acme-client": "^5.4.0",
+    "archiver": "^7.0.1",
     "next": "16.2.1",
+    "next-themes": "^0.4.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-icons": "^5.6.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/archiver": "^7.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/uuid": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "typescript": "^5"
