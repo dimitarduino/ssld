@@ -110,7 +110,7 @@ export function getKeyFile(id: string): string | null {
   return fs.readFileSync(keyFile, 'utf-8');
 }
 
-export function getStats(userId: string) {
+export function getStats(userId?: string) {
   const certs = getAllCertificates(userId);
   const now = new Date();
   const thirtyDaysFromNow = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);

@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { getAllCertificates } from '@/lib/storage';
 import CertificateCard from '@/components/CertificateCard';
-import { getSession } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 import {
   HiOutlineBolt,
   HiOutlineShieldExclamation,
@@ -11,12 +9,7 @@ import {
 export const dynamic = 'force-dynamic';
 
 export default async function CertificatesPage() {
-  const session = await getSession();
-  if (!session) {
-    redirect('/login');
-  }
-
-  const certificates = getAllCertificates(session.id).sort(
+  const certificates = getAllCertificates().sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 

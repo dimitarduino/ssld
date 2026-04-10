@@ -1,7 +1,6 @@
 import { type NextRequest } from 'next/server';
 import { getCertificateById, getKeyFile } from '@/lib/storage';
 import { splitCertChain } from '@/lib/acme';
-import { getSession } from '@/lib/auth';
 import archiver from 'archiver';
 import { PassThrough } from 'stream';
 
@@ -14,13 +13,8 @@ export async function GET(
   const type = searchParams.get('type') || 'cert';
 
   try {
-    const session = await getSession();
-    if (!session) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const cert = getCertificateById(id);
-    if (!cert || cert.userId !== session.id) {
+    if (!cert) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }
 
