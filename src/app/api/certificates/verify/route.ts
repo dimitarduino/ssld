@@ -1,7 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getCertificateById } from '@/lib/storage';
 import { verifyChallengeAndFinalize } from '@/lib/acme';
-import { getSession } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,13 +15,8 @@ export async function POST(request: NextRequest) {
     }
 
     const cert = getCertificateById(id);
-    
-    const session = await getSession();
-    if (!session) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
-    if (!cert || cert.userId !== session.id) {
+    if (!cert) {
       return Response.json(
         { error: 'Certificate not found' },
         { status: 404 }

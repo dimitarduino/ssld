@@ -1,16 +1,10 @@
 import { getAllCertificates } from '@/lib/storage';
-import { getSession } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const session = await getSession();
-    if (!session) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const certificates = getAllCertificates(session.id);
+    const certificates = getAllCertificates();
 
     // Remove sensitive data from all records
     const sanitized = certificates.map((cert) => {

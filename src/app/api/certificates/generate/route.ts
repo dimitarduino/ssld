@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server';
 import { initiateOrder } from '@/lib/acme';
-import { getSession } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,13 +52,9 @@ export async function POST(request: NextRequest) {
     // Check for wildcard + http-01 combo
     const hasWildcard = domains.some((d: string) => d.startsWith('*.'));
     const finalChallengeType = hasWildcard ? 'dns-01' : challengeType;
-    const session = await getSession();
-    if (!session) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
     const record = await initiateOrder(
-      session.id,
+      'default',
       domains,
       email,
       finalChallengeType,
