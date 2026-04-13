@@ -7,7 +7,7 @@ import {
   AcmeEnvironment,
   ServerType,
 } from './types';
-import { saveCertificate, saveKeyFile, getKeyFile } from './storage';
+import { saveCertificate, saveKeyFile } from './storage';
 
 function getDirectoryUrl(env: AcmeEnvironment): string {
   return env === 'production'
@@ -71,7 +71,7 @@ export async function initiateOrder(
 
     const certKeyPem = certKey.toString();
     // Save the auto-generated private key
-    saveKeyFile(id, certKeyPem);
+    await saveKeyFile(id, certKeyPem);
 
     csrBuffer = csr;
   }
@@ -148,7 +148,7 @@ export async function initiateOrder(
     orderData,
   };
 
-  saveCertificate(record);
+  await saveCertificate(record);
 
   // Remove sensitive data from response
   const response = { ...record };
@@ -190,7 +190,7 @@ export async function verifyChallengeAndFinalize(
   if (order.status === 'invalid') {
     record.status = 'failed';
     record.error = 'The ACME order has become invalid (it may have expired or a previous verification attempt failed). Please generate a new certificate.';
-    saveCertificate(record);
+    await saveCertificate(record);
     throw new Error(record.error);
   }
 
@@ -203,7 +203,7 @@ export async function verifyChallengeAndFinalize(
     if (authz.status === 'invalid' || authz.status === 'deactivated' || authz.status === 'expired' || authz.status === 'revoked') {
       record.status = 'failed';
       record.error = `Domain validation for "${authz.identifier.value}" is no longer pending (status: ${authz.status}). This usually happens when a previous verification attempt failed or the order expired. Please delete this certificate and generate a new one.`;
-      saveCertificate(record);
+      await saveCertificate(record);
       throw new Error(record.error);
     }
 
@@ -223,7 +223,7 @@ export async function verifyChallengeAndFinalize(
     if (challenge.status !== 'pending') {
       record.status = 'failed';
       record.error = `Challenge for "${authz.identifier.value}" is no longer pending (status: ${challenge.status}). A previous verification attempt may have failed. Please delete this certificate and generate a new one.`;
-      saveCertificate(record);
+      await saveCertificate(record);
       throw new Error(record.error);
     }
 
@@ -234,7 +234,7 @@ export async function verifyChallengeAndFinalize(
       const msg = err instanceof Error ? err.message : String(err);
       record.status = 'failed';
       record.error = `Challenge verification failed for "${authz.identifier.value}": ${msg}. Make sure your domain challenge is correctly set up, then delete this certificate and generate a new one.`;
-      saveCertificate(record);
+      await saveCertificate(record);
       throw new Error(record.error);
     }
   }
@@ -265,7 +265,7 @@ export async function verifyChallengeAndFinalize(
   record.expiresAt = expiresAt;
   record.challengeInstructions = undefined;
 
-  saveCertificate(record);
+  await saveCertificate(record);
 
   // Return without sensitive data
   const response = { ...record };

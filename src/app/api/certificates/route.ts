@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const certificates = getAllCertificates();
+    const certificates = await getAllCertificates();
 
     // Remove sensitive data from all records
     const sanitized = certificates.map((cert) => {

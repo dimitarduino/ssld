@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
 
-    if (getUserByEmail(email)) {
+    if (await getUserByEmail(email)) {
       return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
     }
 
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    saveUser(user);
+    await saveUser(user);
 
     const token = await createToken({ 
       id: user.id, 

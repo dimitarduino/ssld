@@ -9,7 +9,7 @@ import {
 export const dynamic = 'force-dynamic';
 
 export default async function CertificatesPage() {
-  const certificates = getAllCertificates().sort(
+  const certificates = (await getAllCertificates()).sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 

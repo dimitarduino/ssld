@@ -13,7 +13,7 @@ export async function GET(
   const type = searchParams.get('type') || 'cert';
 
   try {
-    const cert = getCertificateById(id);
+    const cert = await getCertificateById(id);
     if (!cert) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }
@@ -42,7 +42,7 @@ export async function GET(
             { status: 400 }
           );
         }
-        const key = getKeyFile(id);
+        const key = await getKeyFile(id);
         if (!key) {
           return Response.json(
             { error: 'Private key not found' },
@@ -104,7 +104,7 @@ export async function GET(
 
         // Add private key if auto-generated
         if (!cert.customCsr) {
-          const key = getKeyFile(id);
+          const key = await getKeyFile(id);
           if (key) {
             archive.append(key, { name: `${domainSlug}.key` });
           }

@@ -24,8 +24,8 @@ function formatDate(dateStr?: string) {
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const stats = getStats();
-  const certificates = getAllCertificates().slice(0, 5);
+  const stats = await getStats();
+  const certificates = (await getAllCertificates()).slice(0, 5);
   const hasCertificates = certificates.length > 0;
 
   return (

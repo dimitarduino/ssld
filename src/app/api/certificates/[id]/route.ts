@@ -7,7 +7,7 @@ export async function GET(
   const { id } = await params;
 
   try {
-    const cert = getCertificateById(id);
+    const cert = await getCertificateById(id);
     if (!cert) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }
@@ -31,12 +31,12 @@ export async function DELETE(
   const { id } = await params;
 
   try {
-    const cert = getCertificateById(id);
+    const cert = await getCertificateById(id);
     if (!cert) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }
 
-    const deleted = deleteCertificate(id);
+    const deleted = await deleteCertificate(id);
     if (!deleted) {
       return Response.json({ error: 'Certificate not found' }, { status: 404 });
     }

@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const cert = getCertificateById(id);
+    const cert = await getCertificateById(id);
 
     if (!cert) {
       return Response.json(
